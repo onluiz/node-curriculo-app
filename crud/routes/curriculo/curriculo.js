@@ -11,37 +11,34 @@
  module.exports = function(app) {
 
 	novo = function(req, res) {
-		res.render('novo-curriculo');
+		res.render('novo-curriculo', {resposta: 'inicio'});
 	},
 
 	salvar = function(req, res) {
-		console.log("here");
-		//console.log(JSON.parse(req.body));
-		//res.json({ message: req.body });
 
 		Curriculo(req.body).save(function(err) {
-			
     		if(err)
-    			return res.send({ status: 'erro', error: res });
-    		else
-    			return res.send({ status: 'sucesso', success: res});
-    		
+    			return res.send('novo-curriculo', {resposta: 'erro'});
+    		else 
+    			return res.render('novo-curriculo', {resposta: 'sucesso'});
 	    });
 
+	},
+
+	votar = function(req, res) {
+		res.on('curriculo', function (data) {
+			console.log(data); // I can't parse it because, it's a string. why?
+			res.send({ success: 'Server success' });
+		});
+		console.log("here");
 		/**
-		req.on('data', function(data) {
-	    	var curriculo = new Curriculo(JSON.parse(data));
-	    	curriculo.votos = "0";
-	    	console.log(curriculo);
-
-	    	curriculo.save(function(err) {
-	    		if(err)
-	    			return res.send({ status: 'erro', error:err });
-	    		else
-	    			return res.send({ status: 'sucesso', curriculo: curriculo});
-		    });
+		Curriculo(req.body).save(function(err) {
+    		if(err)
+    			return res.send('novo-curriculo', {resposta: 'erro'});
+    		else 
+    			return res.render('novo-curriculo', {resposta: 'sucesso'});
 	    });
-		*/
+		**/
 
 	},
 
@@ -91,6 +88,7 @@
 
 	app.get('/curriculo', novo);
 	app.post('/curriculo/salvar', salvar);
+	app.post('/curriculo/votar', votar);
 	app.get('/curriculo/listar', listar);
 	app.post('/curriculo/findAll', findAll);
 	app.post('/curriculo/deleteAll', deleteAll);

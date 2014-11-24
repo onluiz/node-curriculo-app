@@ -4,7 +4,7 @@
 	    <meta charset="utf-8">
 	    <title>Cadastro de CV</title>
 
-	    {{include default.ejs}}
+	    <%= include default.ejs %>
 
 		<script type="text/javascript">
 		$(function() {
@@ -26,9 +26,12 @@
 					row += "<td>" + curriculo.nome + "</td>"
 					row += "<td>" + curriculo.votos + "</td>"
 
-					row += "<td><button onclick='$(this).attr('disabled', 'disabled');' type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>Gostei <span class='glyphicon glyphicon-thumbs-up'></span></button></td>";
+					row += "<td><button onclick=\"$(this).attr('disabled', 'disabled'); votar('" + curriculo._id + "');\" type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>Gostei <span class='glyphicon glyphicon-thumbs-up'></span></button></td>";
+					/**
+					
 
 					row += "<td><button onclick='$(this).attr('disabled', 'disabled');' type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>Remover</button></td>";
+					**/
 					row += "</tr>";
 					html += row;
 				} 
@@ -40,6 +43,26 @@
 
 		function remover(id) {
 			alert(id);
+		}
+
+		function votar(id) {
+			var curriculo = {
+				_id: id,
+				votos: 1223
+			};
+
+			$.ajax({
+				type : "POST",
+				contentType : "application/json; charset=utf-8",
+				url: '/curriculo/votar',
+				cache: false,
+				data : JSON.stringify(curriculo)
+			}).done(function (sucesso) {
+				console.log("sucesso");
+
+			}).fail(function(falha) {
+				console.log("falha");
+			});
 		}
 		</script>
 	</head>
@@ -88,6 +111,6 @@
 
 
 		</div>
-	{{include foot.ejs}}
+	<%= include foot.ejs %>
 	</body>
 </html>

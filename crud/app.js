@@ -4,9 +4,9 @@ var path = require('path');
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
 
-var ejs = require('ejs'); 
-ejs.open = '{{'; 
-ejs.close = '}}';
+var ejs = require('ejs');
+//ejs.open = '{{'; 
+//ejs.close = '}}';
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,7 +23,7 @@ console.log('server is running');
 // set routes
 var routes = require('./routes/curriculo/curriculo')(app);
 
-/**
+
 mongoose.connect('mongodb://localhost/curriculo', function(err, res) {
   if(err) {
     console.log('error connecting to MongoDB Database. ' + err);
@@ -31,8 +31,8 @@ mongoose.connect('mongodb://localhost/curriculo', function(err, res) {
     console.log('Connected to Database');
   }
 });
-**/
 
+/**
 var options = {
   db: { native_parser: true },
   server: { poolSize: 5 },
@@ -40,7 +40,7 @@ var options = {
   pass: '6d4584da33875d07992fd95f55d3ac13'
 }
 mongoose.connect('mongodb://nodejitsu:6d4584da33875d07992fd95f55d3ac13@troup.mongohq.com:10097/nodejitsudb7281177395', options);
-
+**/
 app.get('/', function(req, res) {
   res.render('index');
 });
