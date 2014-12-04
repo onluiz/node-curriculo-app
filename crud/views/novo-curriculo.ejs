@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title>Cadastro de CV</title>
+
+	    <%= include default.ejs %>
+
+		<script type="text/javascript">
+		$(function() {
+
+			var resposta = '<%=resposta%>';
+			
+			console.log(resposta);
+
+			if(resposta === 'sucesso') {
+				$("#modal-aviso-mensagem").html("Currículo salvo com sucesso.");
+				$("#modal-aviso").modal();
+
+			} else if(resposta === 'erro'){
+				$("#modal-aviso-mensagem").html("Currículo não salvo.");
+				$("#modal-aviso").modal();
+			}
+
+		});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<h1>Cadastre seu currículo</h1>
+				<!-- COLAR ABAIXO ANA -->
+				<p>
+					Utilize nosso sistema para cadastrar seu currículo, criar seu perfil e se espelhar em outros
+					currículos de sucesso!
+				</p>
+				
+			</div>
+			<form id="form-curriculo" action="/curriculo/salvar" contentType="application/json; charset=utf-8" method="POST">
+				<div class="control-group">
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Informações Pessoais</legend>
+						<div class="control-group">
+							<p>
+								<label for="nome"><span style="color: red;">*</span>Nome:</label>
+								<input id="nome" name="nome" type="text" class="form-control" placeholder="Nome" required>
+							</p>
+							<p>
+								<label for="email"><span style="color: red;">*</span>E-mail:</label>
+								<input id="email" name="email" type="text" class="form-control" placeholder="E-mail" required>
+							</p>
+							<p>
+								<label for="data-nascimento"><span style="color: red;">*</span>Data de Nascimento:</label>
+								<input id="data-nascimento" name="data-nascimento" type="date" class="form-control" placeholder="Data de Nascimento" required>
+							</p>
+							<p>
+								<label for="altura">Altura:</label>
+								<input id="altura" name="altura" type="number" class="form-control" placeholder="Altura">
+							</p>
+							<p>
+								<label for="site">Site:</label>
+								<input id="site" name="site" type="text" class="form-control" placeholder="Site">
+							</p>
+							<p>
+								<label for="estado-civil"><span style="color: red;">*</span>Estado Civil:</label>
+								<select class="form-control" id="estado-civil" name="estado-civil" required>
+									<option value="solteiro">Solteiro (a)</option>
+									<option value="casado">Casado (a)</option>
+									<option value="outros">Não foi no Linguição da Automação (a)</option>
+								</select>
+							</p>
+							<p>
+								<label for="sexo"><span style="color: red;">*</span>Sexo:</label>
+								<select class="form-control" id="sexo" name="sexo" required>
+									<option value="masculino">Masculino</option>
+									<option value="feminino">Feminino</option>
+								</select>
+							</p>
+						</div>
+					</fieldset>
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Informações de Endereço</legend>
+						<div class="control-group">
+							<p>
+								<label for="cep">CEP:</label>
+								<input id="cep" name="cep" type="text" class="form-control" placeholder="Cep">
+							</p>
+							<p>
+								<label for="rua">Rua:</label>
+								<input id="rua" name="rua" type="text" class="form-control" placeholder="Rua">
+							</p>
+						</div>
+					</fieldset>
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Informações de Contato</legend>
+						<div class="control-group">
+							<p>
+								<label for="telefone">Telefone:</label>
+								<input id="telefone" name="telefone" type="text" class="form-control" placeholder="Telefone">
+							</p>
+							<p>
+								<label for="celular"><span style="color: red;">*</span>Celular:</label>
+								<input id="celular" name="celular" type="text" class="form-control" placeholder="Celular" required>
+							</p>
+						</div>
+					</fieldset>
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Conhecimentos</legend>
+						<div class="control-group">
+							<p>
+								<label for="conhecimento">O que você sabe fazer?:</label>
+								<textarea id="conhecimento" name="conhecimento" class="form-control" rows="10"></textarea>
+							</p>
+						</div>
+					</fieldset>
+					<p>
+						<button class="btn btn-lg btn-primary" href="#" role="button" onclick="salvar();">Salvar</button>
+					</p>
+				</div>
+			</form>
+
+			<div class="modal fade" id="modal-aviso" tabindex="-1" role="dialog" aria-labelledby="modal-aviso-label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							<h4 class="modal-title" id="modal-aviso-label">Aviso</h4>
+						</div>
+						<div class="modal-body">
+							<span id="modal-aviso-mensagem"></span>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Continuar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		<%= include foot.ejs %>
+	</body>
+</html>
