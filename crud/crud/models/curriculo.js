@@ -2,7 +2,7 @@
  * Tshirt
  *
  * @module      :: Model
- * @description :: Represent data model for the cvs
+ * @description :: Represent data model for the Tshirts
  * @author        :: Luiz Alberto da Silva Jr
  */
 
@@ -19,8 +19,12 @@ var Curriculo = new Schema({
 	    type: String
 	  },
 
+	  dataNascimento:   {
+	    type: Date
+	  },
+
 	  altura:   {
-	    type: String
+	    type: Number
 	  },
 
 	  site:   {
@@ -52,10 +56,6 @@ var Curriculo = new Schema({
 	  },
 
 	  celular:   {
-	    type: String
-	  },
-
-	  rua:   {
 	    type: String
 	  },
 

@@ -3,7 +3,7 @@
  *
  * @module      :: Routes
  * @description :: Maps routes and actions
- * @author      :: Luiz and Ana
+ * @author      :: Luiz
  */
 
  var Curriculo = require('../../models/curriculo.js')
@@ -16,79 +16,37 @@
 
 	salvar = function(req, res) {
 
-		//Pega dados do formulario e salva usando o modelo Curriculo
 		Curriculo(req.body).save(function(err) {
     		if(err)
-    			return res.render('novo-curriculo', {resposta: 'erro'});
+    			return res.send('novo-curriculo', {resposta: 'erro'});
     		else 
     			return res.render('novo-curriculo', {resposta: 'sucesso'});
 	    });
 
 	},
 
-	editar = function(req, res) {
-
-		return Curriculo.findById(req.body._id, function(err, curriculo) {
-
-			for (var key in req.body) { 
-				for(var keyCurriculo in curriculo) {
-					if(key === keyCurriculo) {
-						curriculo[key] = req.body[key];
-					}
-				}
-			}
-			curriculo.save(function(err) {
-				if(!err)
-					return res.render('listar-curriculos', {resposta: 'sucesso-save'});
-
-				return res.render('listar-curriculos', {resposta: 'falha-save'});
-			});
-			
-		});
-		
-
-	},
-
-	findById = function(req, res) {
-
-		return Curriculo.findById(req.params.id, function(err, curriculo) {
-			return res.send(curriculo);
-		});
-
-	},
-
 	votar = function(req, res) {
-
-		return Curriculo.findById(req.params.id, function(err, curriculo) {
-			if(!curriculo)
-				return false;
-
-			//INCREMENTA VOTO
-			curriculo.votos += 1; 
-			curriculo.save();
-			return true;
+		res.on('curriculo', function (data) {
+			console.log(data); // I can't parse it because, it's a string. why?
+			res.send({ success: 'Server success' });
 		});
-
-	},
-
-	remover = function(req, res) {
-
-		return Curriculo.findById(req.params.id, function(err, curriculo) {
-			if(!curriculo)
-				return false;
-
-			curriculo.remove();
-			return true;
-		});
+		console.log("here");
+		/**
+		Curriculo(req.body).save(function(err) {
+    		if(err)
+    			return res.send('novo-curriculo', {resposta: 'erro'});
+    		else 
+    			return res.render('novo-curriculo', {resposta: 'sucesso'});
+	    });
+		**/
 
 	},
 
 	listar = function(req, res) {
-		return res.render('listar-curriculos', {resposta: ''});
+		res.render('listar-curriculos');
 	},
 
 	findAll = function(req, res) {
-
 	    return Curriculo.find(function(err, curriculos) {
 	      if(!err) {
 	        return res.send(curriculos);
@@ -98,7 +56,6 @@
 	        return res.send({ error: 'Server error' });
 	      }
 	    });
-
 	  },
 
 	deleteAll = function(req, res) {
@@ -119,16 +76,23 @@
 	        return res.send({ error: 'Server error' });
 	      }
 	    });
+	},
+
+	todo = function(req, res) {
+		res.render('todo');
+	},
+
+	blog = function(req, res) {
+		res.render('blog');
 	}
 
 	app.get('/curriculo', novo);
 	app.post('/curriculo/salvar', salvar);
-	app.post('/curriculo/editar', editar);
-	app.get('/curriculo/findById/:id', findById);
-	app.get('/curriculo/votar/:id', votar);
-	app.get('/curriculo/remover/:id', remover);
+	app.post('/curriculo/votar', votar);
 	app.get('/curriculo/listar', listar);
 	app.post('/curriculo/findAll', findAll);
 	app.post('/curriculo/deleteAll', deleteAll);
+	app.get('/curriculo/todo', todo);
+	app.get('/curriculo/blog', blog);
 
  }

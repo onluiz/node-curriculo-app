@@ -4,13 +4,14 @@
 	    <meta charset="utf-8">
 	    <title>Cadastro de CV</title>
 
-	    <!-- Developed by Ana Carolina -->
-
 	    <%= include default.ejs %>
 
 		<script type="text/javascript">
 		$(function() {
+
 			var resposta = '<%=resposta%>';
+			
+			console.log(resposta);
 
 			if(resposta === 'sucesso') {
 				$("#modal-aviso-mensagem").html("Currículo salvo com sucesso.");
@@ -28,6 +29,7 @@
 		<div class="container">
 			<div class="jumbotron">
 				<h1>Cadastre seu currículo</h1>
+				<!-- COLAR ABAIXO ANA -->
 				<p>
 					Utilize nosso sistema para cadastrar seu currículo, criar seu perfil e se espelhar em outros
 					currículos de sucesso!
@@ -48,19 +50,23 @@
 								<input id="email" name="email" type="text" class="form-control" placeholder="E-mail" required>
 							</p>
 							<p>
+								<label for="data-nascimento"><span style="color: red;">*</span>Data de Nascimento:</label>
+								<input id="data-nascimento" name="data-nascimento" type="date" class="form-control" placeholder="Data de Nascimento" required>
+							</p>
+							<p>
 								<label for="altura">Altura:</label>
-								<input id="altura" name="altura" class="form-control" placeholder="Altura">
+								<input id="altura" name="altura" type="number" class="form-control" placeholder="Altura">
 							</p>
 							<p>
 								<label for="site">Site:</label>
 								<input id="site" name="site" type="text" class="form-control" placeholder="Site">
 							</p>
 							<p>
-								<label for="estadoCivil"><span style="color: red;">*</span>Estado Civil:</label>
-								<select class="form-control" id="estadoCivil" name="estadoCivil" required>
+								<label for="estado-civil"><span style="color: red;">*</span>Estado Civil:</label>
+								<select class="form-control" id="estado-civil" name="estado-civil" required>
 									<option value="solteiro">Solteiro (a)</option>
 									<option value="casado">Casado (a)</option>
-									<option value="outros">Não vai na amnésia (a)</option>
+									<option value="outros">Não foi no Linguição da Automação (a)</option>
 								</select>
 							</p>
 							<p>
@@ -108,7 +114,7 @@
 						</div>
 					</fieldset>
 					<p>
-						<button class="btn btn-lg btn-primary" href="#" role="button">Salvar</button>
+						<button class="btn btn-lg btn-primary" href="#" role="button" onclick="salvar();">Salvar</button>
 					</p>
 				</div>
 			</form>
